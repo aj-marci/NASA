@@ -1,9 +1,13 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = 5000;
 const mongoose = require('mongoose');
 
-const uri = "mongodb+srv://abmarcinek:hacking247@cluster0.jtp9c7g.mongodb.net/?retryWrites=true&w=majority";
+const username = process.env.USERNAME;
+const password = process.env.PASSWORD;
+
+const uri = process.env.MONGO_URI;
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
