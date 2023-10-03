@@ -3,11 +3,15 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const mongoose = require('mongoose');
-
-const username = process.env.USERNAME;
-const password = process.env.PASSWORD;
-
 const uri = process.env.MONGO_URI;
+const User = require('./models/user');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
+
+app.use(cors());
+app.use(express.json());
+
+const router = express.Router();
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -24,15 +28,24 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-const userSchema = new mongoose.Schema({
-  username: String,
-  email: String,
-  // ... other fields
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email, password });
+
+  if (!user) {
+    return res.status(401).json({ message: 'Invalid' });
+  }
+
+  // Generate an authentication token
+  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
+
+  res.json({ token });
 });
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+app.use('/api', router);
 
 
 app.get('/', (req, res) => {
