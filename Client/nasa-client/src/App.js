@@ -1,7 +1,8 @@
 import LoginForm from "./Login";
 import Home from "./Homepage";
-import {BrowserRouter as Router, Routes, Route, useLocation} from 'react-router-dom';
+import { Routes, Route, useLocation} from 'react-router-dom';
 import { useEffect } from 'react';
+import Signup from "./Signup";
 
 
 function ScrollToTop() {
@@ -19,18 +20,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      {!localStorage.getItem('token') ? (
-        <LoginForm />
-      ) : (
-        <>
-        <Router>
-          <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-        </Routes>
-      </Router>
+      <>
+           <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/register" element={<Signup />}></Route>
+              <Route path="/login" element={<LoginForm />}></Route>
+            </Routes>
       </>
-      )}
       </header>
     </div>
   );

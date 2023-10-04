@@ -1,44 +1,56 @@
 import React, { useState } from 'react';
-import Home from './Homepage';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loggedIN, setLoggedIN] = useState();
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
+function Signup() {
+  const [signupEmail, setSignupEmail] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
+
+  const navigate = useNavigate("");
+
+  const handleSignUpEmail = (e) => {
+    setSignupEmail(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleSignUpPassword = (e) => {
+    setSignupPassword(e.target.value);
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/signup', {
+        email: signupEmail,
+        password: signupPassword,
+      });
+
+      console.log(response.data.message);
+      localStorage.setItem("token", "new user created")
+      navigate("/");
+
+    } catch (err) {
+      console.error('Error registering user:', err);
+    }
   };
 
   return (
     <>
-    {loggedIN ? (
     <div>
       <h2>Signup</h2>
       <form>
         <div>
-          <label>Username:</label>
-          <input type="text" value={username} onChange={handleUsernameChange} />
+          <label>Email:</label>
+          <input type="text" value={signupEmail} onChange={handleSignUpEmail} />
         </div>
         <div>
           <label>Password:</label>
-          <input type="password" value={password} onChange={handlePasswordChange} />
+          <input type="password" value={signupPassword} onChange={handleSignUpPassword} />
         </div>
-        <button type="button" onClick={handleLogin}>Signup</button>
+        <button type="button" onClick={handleSignUp}>Signup</button>
       </form>
     </div>
-    ) : (
-     <Home />
-     )}
     </>
   );
 }
 
-export default LoginForm;
+export default Signup;

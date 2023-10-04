@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ function LoginForm() {
     try {
       const response = await axios.post('http://localhost:5000/api/login', {
         email: email,
-        password: password
+        password: password,
       });
 
       const { token } = response.data;
@@ -31,6 +32,7 @@ function LoginForm() {
 
       // Update the loggedIN state to indicate that the user is logged in
       setLoggedIN(true);
+      window.location.reload();
 
       // Optionally, you can redirect the user to a different page after successful login
     } catch (err) {
@@ -55,6 +57,14 @@ function LoginForm() {
         </div>
         <button type="button" onClick={handleLogin}>Login</button>
       </form>
+    </div>
+    <div>
+      <button>
+          <Link to="/register">Or Create an Account</Link>
+      </button>
+    </div>
+    <div>
+      <button>Or Signin With Google</button>
     </div>
     </>
   );
