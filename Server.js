@@ -2,9 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = 5000;
-const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
 const uri = process.env.MONGO_URI;
-const User = require('./models/user');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 
@@ -13,25 +12,31 @@ app.use(express.json());
 
 const router = express.Router();
 
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+async function findUser(email, password) {
+  const client = new MongoClient(uri);
 
-const db = mongoose.connection;
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB');
 
-db.on('error', (error) => {
-  console.error('MongoDB connection error:', error);
-});
+    const database = client.db('Users'); // Your database name
+    const collection = database.collection('User'); // Your collection name
 
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
+    const user = await collection.findOne({ email, password });
+
+    return user;
+  } finally {
+    await client.close();
+  }
+}
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log('Received email:', email);
+  console.log('Received password:', password);
 
-  const user = await User.findOne({ email, password });
+  const user = await findUser(email, password);
+  console.log('Found user:', user);
 
   if (!user) {
     return res.status(401).json({ message: 'Invalid' });
@@ -42,11 +47,12 @@ router.post('/login', async (req, res) => {
     expiresIn: '1h',
   });
 
+console.log(token);
+
   res.json({ token });
 });
 
 app.use('/api', router);
-
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
