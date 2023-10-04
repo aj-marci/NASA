@@ -2,6 +2,11 @@ import LoginForm from "./Login";
 
 
 function Home () {
+
+const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+}
     return (
         <>
         {localStorage.getItem('token') ? (
@@ -10,7 +15,7 @@ function Home () {
             <p>hello</p>
             </div>
             <div>
-                <button>Logout</button>
+                <button onClick={handleLogout}>Logout</button>
             </div>
         </div>
         ) : (
