@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -26,22 +27,30 @@ function LoginForm() {
       const { token } = response.data;
       console.log(response.data);
 
-      // Store the token in localStorage (or cookies for better security)
+
       localStorage.setItem('token', token);
       console.log(email, password);
 
-      // Update the loggedIN state to indicate that the user is logged in
+
       setLoggedIN(true);
       window.location.reload();
 
-      // Optionally, you can redirect the user to a different page after successful login
+
     } catch (err) {
       console.log('Invalid credentials');
     }
   };
 
+  const handleGoogleLoginSuccess = (googleUser) => {
+    const accessToken = googleUser.access_token;
+    localStorage.setItem('token', accessToken);
+    window.location.reload();
+    // You can also set the user information in local storage if needed
+    // localStorage.setItem('googleUserInfo', JSON.stringify(googleUser));
+  };
 
-  // need to add button to signup component
+
+
   return (
     <>
     <div>
@@ -64,7 +73,7 @@ function LoginForm() {
       </button>
     </div>
     <div>
-      <button>Or Signin With Google</button>
+      <GoogleLogin onSuccess={handleGoogleLoginSuccess}/>
     </div>
     </>
   );
