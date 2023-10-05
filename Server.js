@@ -7,6 +7,7 @@ const uri = process.env.MONGO_URI;
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const axios = require('axios');
 
 app.use(cors());
 app.use(express.json());
@@ -91,6 +92,24 @@ async function createUser(email, password) {
   }
 }
 
+// need to hide API key before pushing to GitHub
+router.get('/apod', (req, res) => {
+  const nasaURL = "https://api.nasa.gov/planetary/apod?api_key=";
+  const key = process.env.NASA_API_KEY;
+  const apiUrl = `${nasaURL}${key}`;
+
+  axios.get(apiUrl)
+    .then(response => {
+      res.json(response.data);
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: 'Error fetching data from NASA API' });
+    });
+});
+
+// signup new user
 router.post('/signup', async (req, res) => {
   const { email, password } = req.body;
   console.log('Received email:', email);
