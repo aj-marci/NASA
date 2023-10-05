@@ -25,12 +25,8 @@ function LoginForm() {
       });
 
       const { token } = response.data;
-      console.log(response.data);
-
 
       localStorage.setItem('token', token);
-      console.log(email, password);
-
 
       setLoggedIN(true);
       window.location.reload();

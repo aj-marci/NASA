@@ -45,11 +45,8 @@ async function findUser(email, password) {
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log('Received email:', email);
-  console.log('Received password:', password);
 
   const user = await findUser(email, password);
-  console.log('Found user:', user);
 
   if (!user) {
     return res.status(401).json({ message: 'Invalid email or password' });
@@ -59,8 +56,6 @@ router.post('/login', async (req, res) => {
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
     expiresIn: '1h',
   });
-
-console.log(token);
 
   res.json({ token });
 });
@@ -101,7 +96,6 @@ router.get('/apod', (req, res) => {
   axios.get(apiUrl)
     .then(response => {
       res.json(response.data);
-      console.log(response.data);
     })
     .catch(error => {
       console.error(error);
@@ -112,7 +106,6 @@ router.get('/apod', (req, res) => {
 // signup new user
 router.post('/signup', async (req, res) => {
   const { email, password } = req.body;
-  console.log('Received email:', email);
 
   // Check if the user with the same email already exists
   const existingUser = await findUser(email);
