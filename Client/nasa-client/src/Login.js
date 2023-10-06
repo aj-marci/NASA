@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -28,15 +28,16 @@ function LoginForm() {
       window.location.reload();
 
     } catch (err) {
-      console.log('Invalid credentials');
+      alert('Invalid login info. Please try again, create an account, or login with Google.');
     }
   };
 
-  const handleGoogleLoginSuccess = (googleUser) => {
-    const accessToken = googleUser.access_token;
-    localStorage.setItem('token', accessToken);
-    window.location.reload();
-  };
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      localStorage.setItem('token', tokenResponse);
+      window.location.reload();
+    },
+  });
 
   return (
     <>
@@ -67,7 +68,8 @@ function LoginForm() {
           </div>
           <div className='flex items-center justify-center pt-4'>
             <button
-            className='bg-lightblueText text-background rounded px-2 py-2 hover:bg-white'
+            className='bg-lightblueText text-background rounded px-2 py-2 hover:bg-white
+                font-bold'
             type="button"
             onClick={handleLogin}>Login</button>
           </div>
@@ -75,16 +77,16 @@ function LoginForm() {
           <div className='flex items-center justify-center pt-6'>
             <button
             className='bg-background text-lightblueText rounded px-2 py-2 hover:bg-white
-                      hover:text-background font-bold'
-            type="button">
+                      hover:text-background font-bold'>
               <Link to="/register">Or Create an Account</Link>
             </button>
           </div>
-          <div className='flex items-center justify-center pt-6 text-white font-bold'>
-            <p>Or Login With Google</p>
-          </div>
           <div className='flex items-center justify-center pt-2'>
-            <GoogleLogin onSuccess={handleGoogleLoginSuccess}/>
+            <button className='bg-background text-white rounded px-2 py-2 hover:bg-white
+                      hover:text-background font-bold'
+            onClick={() => login()}>
+              Or Login with Google
+            </button>
           </div>
     </div>
     </>

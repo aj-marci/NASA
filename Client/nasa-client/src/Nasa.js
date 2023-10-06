@@ -19,17 +19,19 @@ function NASA() {
     return (
         <>
         <div className="flex-col bg-background h-fit text-lightblueText px-8 font-master">
-            <div className='flex items-center justify-center pt-12 text-2xl font-bold'>
-                <h1>Daily NASA Astronomy Image</h1>
+            <div className='flex items-center justify-center pt-12 font-bold
+                lg:text-3xl md:text-2xl text-lg'>
+                <h1>Daily NASA Astronomy Image 🔭</h1>
             </div>
             <div className='flex items-center justify-center pt-4 italic text-white'>
                 <p>{apodData.date}</p>
             </div>
-            <div className='flex items-center justify-center pt-4 text-xl font-semibold'>
+            <div className='flex items-center justify-center pt-4 font-semibold
+            lg:text-xl md:text-xl text-base'>
                 <h2>{apodData.title}</h2>
             </div>
             <div className='flex items-center justify-center pt-4'>
-                <img className='rounded h-auto max-w-md'
+                <img className='rounded h-auto lg:max-w-md md:max-w-sm w-auto'
                 src={apodData.hdurl}
                 alt={apodData.title}/>
             </div>
@@ -37,7 +39,8 @@ function NASA() {
                 <p>Image copyright, {apodData.copyright}</p>
             </div>
             <div className='flex items-center justify-center pt-4 text-white
-                text-base indent-4 font-semibold leading-relaxed'>
+                 indent-4 font-semibold leading-relaxed
+                 lg:text-base md:text-base text-sm'>
                 <p>{apodData.explanation}</p>
             </div>
             <div className='flex items-center justify-center pt-4'>
