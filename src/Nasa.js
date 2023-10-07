@@ -11,7 +11,7 @@ function NASA() {
     }
 
     useEffect(() => {
-        fetch('/api/apod')
+        fetch('https://nasa-apod-drab.vercel.app/api/apod')
           .then(response => response.json())
           .then(data => setApodData(data))
       }, []);
