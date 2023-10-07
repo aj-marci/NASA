@@ -39,7 +39,7 @@ function Signup() {
 
   const handleSignUp = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/signup', {
+      const response = await axios.post('https://nasa-apod-drab.vercel.app/api/signup', {
         email: signupEmail,
         password: signupPassword,
       });
