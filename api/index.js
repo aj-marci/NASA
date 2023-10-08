@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 const axios = require('axios');
 
 const corsOptions = {
-  origin: 'https://nasa-backend-nine.vercel.app/', // Replace with your Vercel app's URL
+  origin: 'https://nasa-backend-nine.vercel.app', // Replace with your Vercel app's URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // If your frontend sends cookies, you might need this
   optionsSuccessStatus: 204, // Some legacy browsers (IE11) choke on 204
