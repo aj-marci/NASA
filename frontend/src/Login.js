@@ -42,7 +42,7 @@ function LoginForm() {
   return (
     <>
     <div className="flex-col bg-background h-screen text-lightblueText px-4 font-master">
-      <div className='flex items-center justify-center pt-12 text-2xl font-bold'>
+      <div className='flex items-center justify-center pt-12 lg:text-2xl md:text-lg text-lg font-bold'>
         <h2>Login to View NASA APOD</h2>
       </div>
         <form>
