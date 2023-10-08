@@ -16,11 +16,11 @@
     }
   ],
   "scripts": {
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "start": "node inex.js",
     "server": "node index.js",
-    "client": "cd .. && npm start",
-    "postinstall": "cd .. && npm install",
-    "build": "cd .. && npm install && npm run build",
+    "client": "cd .. && cd frontend && npm start",
+    "postinstall": "cd .. && cd frontend && npm install",
+    "build": "cd .. && cd frontend && npm install && npm run build",
     "start-server": "node index.js"
   },
   "keywords": [],
