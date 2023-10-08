@@ -16,7 +16,7 @@
     }
   ],
   "scripts": {
-    "start": "node inex.js",
+    "start": "node index.js",
     "server": "node index.js"
   },
   "keywords": [],
