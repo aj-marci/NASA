@@ -11,7 +11,7 @@ function NASA() {
     }
 
     useEffect(() => {
-        fetch('/api/apod')
+        fetch('https://nasa-backend-b9f866abb098.herokuapp.com/api/apod')
           .then(response => response.json())
           .then(data => setApodData(data))
       }, []);

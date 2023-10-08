@@ -39,7 +39,7 @@ function Signup() {
 
   const handleSignUp = async () => {
     try {
-      const response = await axios.post('/api/signup', {
+      const response = await axios.post('https://nasa-backend-b9f866abb098.herokuapp.com//api/signup', {
         email: signupEmail,
         password: signupPassword,
       });
