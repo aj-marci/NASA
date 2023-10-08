@@ -17,7 +17,7 @@ function LoginForm() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('https://nasa-backend-b9f866abb098.herokuapp.com//api/login', {
+      const response = await axios.post('https://nasa-backend-b9f866abb098.herokuapp.com/api/login', {
         email: email,
         password: password,
       });
