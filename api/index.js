@@ -9,8 +9,13 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const axios = require('axios');
 
+// to deploy server changes to heroku..
+// cd NASA --> git push subtree --prefix api heroku main
+// to deploy frontend changes..
+// if working on main branch, git push deploys changes to Vercel
+
 const corsOptions = {
-  origin: 'https://nasa-backend-nine.vercel.app', // Replace with your Vercel app's URL
+  origin: 'https://https://aj-nasa-image-of-day.vercel.app/', // Replace with your Vercel app's URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // If your frontend sends cookies, you might need this
   optionsSuccessStatus: 204, // Some legacy browsers (IE11) choke on 204
