@@ -43,7 +43,10 @@ function LoginForm() {
     <>
     <div className="flex-col bg-background h-screen text-lightblueText px-4 font-master">
       <div className='flex items-center justify-center pt-12 lg:text-2xl md:text-lg text-lg font-bold'>
-        <h2>Login to View NASA APOD</h2>
+        <h2>Login or Signup</h2>
+      </div>
+      <div className='flex items-center justify-center pt-4 lg:text-base md:text-base text-sm text-white'>
+        <h2>Once logged in, NASA's daily astronomy image and info will be available.</h2>
       </div>
         <form>
           <div className='flex items-center justify-center pt-4 font-semibold'>
