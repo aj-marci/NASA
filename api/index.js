@@ -15,7 +15,7 @@ const axios = require('axios');
 // if working on main branch, git push deploys changes to Vercel
 
 const corsOptions = {
-  origin: 'https://https://aj-nasa-image-of-day.vercel.app/', // Replace with your Vercel app's URL
+  origin: 'https://aj-nasa-image-of-day.vercel.app/', // Replace with your Vercel app's URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // If your frontend sends cookies, you might need this
   optionsSuccessStatus: 204, // Some legacy browsers (IE11) choke on 204
